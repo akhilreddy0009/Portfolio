@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Akhil Reddy – Game QA & Dev Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg-1: #020617;
+      --bg-2: #020617;
+      --accent: #22d3ee;
+      --accent-soft: rgba(34, 211, 238, 0.5);
+      --accent-strong: #38bdf8;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --border-soft: rgba(148, 163, 184, 0.4);
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56,189,248,0.2) 0, transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(129,140,248,0.2) 0, transparent 45%),
+        radial-gradient(circle at 50% 100%, rgba(236,72,153,0.18) 0, transparent 45%),
+        #020617;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Tiny stars effect */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(248,250,252,0.7) 0, transparent 55%),
+        radial-gradient(1px 1px at 80% 10%, rgba(248,250,252,0.5) 0, transparent 55%),
+        radial-gradient(1px 1px at 40% 80%, rgba(248,250,252,0.65) 0, transparent 55%);
+      mix-blend-mode: screen;
+      z-index: -1;
+    }
+
+    /* NAVBAR / TOP HUD */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(15,23,42,0.96), rgba(15,23,42,0.7), transparent);
+      border-bottom: 1px solid rgba(15,23,42,0.9);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .nav-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-logo {
+      font-family: "Orbitron", system-ui;
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .nav-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 16px rgba(34,211,238,0.4);
+      transform: translateY(-1px);
+    }
+
+    .nav-chip {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(248,250,252,0.15);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(34,211,238,0.8);
+    }
+
+    /* LAYOUT CONTAINER */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0,1.3fr);
+      gap: 26px;
+      align-items: center;
+      margin-top: 12px;
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0,1.3fr) minmax(0,1fr);
+      }
+    }
+
+    .hero-role {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-strong);
+      margin-bottom: 12px;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 32rem;
+      line-height: 1.6;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15,23,42,0.9);
+      color: var(--accent-strong);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    .btn-ghost {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15,23,42,0.8);
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 18px rgba(148,163,184,0.4);
+      transform: translateY(-1px);
+    }
+
+    .hero-contact {
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+    }
+
+    .hero-contact-item span {
+      color: var(--accent-strong);
+      font-size: 12px;
+    }
+
+    .hero-contact a {
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    .hero-contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* RIGHT ORB */
+    .hero-orb-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+    }
+
+    .hero-orb {
+      position: relative;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,0.3) 0, transparent 40%),
+        radial-gradient(circle at 80% 40%, rgba(56,189,248,0.9) 0, transparent 55%),
+        radial-gradient(circle at 35% 80%, rgba(129,140,248,0.85) 0, transparent 55%),
+        radial-gradient(circle, #020617 0, #020617 50%, #000 100%);
+      box-shadow:
+        0 0 35px rgba(34,211,238,0.7),
+        0 0 80px rgba(56,189,248,0.6);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+    }
+
+    .hero-orb::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: inherit;
+      border: 1px solid rgba(248,250,252,0.15);
+      background:
+        radial-gradient(circle, rgba(15,23,42,0.7) 0, rgba(15,23,42,0.95) 60%, rgba(15,23,42,1) 100%);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-orb-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      opacity: 0.6;
+      animation: orb-noise 8s linear infinite;
+    }
+
+    .hero-orb-logo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-orb-name {
+      font-family: "Orbitron", system-ui;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .hero-orb-role {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-soft);
+    }
+
+    .hero-orb-ring {
+      position: absolute;
+      inset: 7%;
+      border-radius: 50%;
+      border: 1px dashed rgba(148,163,184,0.3);
+      box-shadow: 0 0 12px rgba(148,163,184,0.3);
+      animation: orb-ring-spin 30s linear infinite;
+    }
+
+    @keyframes orb-noise {
+      0% { transform: translate3d(0,0,0); }
+      50% { transform: translate3d(-6px,4px,0); }
+      100% { transform: translate3d(0,0,0); }
+    }
+
+    @keyframes orb-ring-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* SECTIONS */
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: "Orbitron", system-ui;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+
+    .section-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(148,163,184,0.7), transparent);
+      margin-bottom: 14px;
+    }
+
+    /* CARDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0,1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 880px) {
+      .grid-2 {
+        grid-template-columns: minmax(0,1.05fr) minmax(0,1fr);
+      }
+    }
+
+    .card {
+      border-radius: 18px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: var(--card-bg);
+      padding: 14px 14px 12px;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.8);
+      font-size: 13px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .card-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      color: var(--accent-strong);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .card-list {
+      margin-top: 8px;
+      list-style: none;
+      padding-left: 0;
+      color: var(--text-muted);
+    }
+
+    .card-list li {
+      margin-bottom: 5px;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .card-list li::before {
+      content: "▶";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 8px;
+      color: var(--accent-strong);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-muted);
+    }
+
+    .badge-strong {
+      color: var(--accent-strong);
+      border-color: var(--accent-soft);
+    }
+
+    /* CERTIFICATE GALLERY */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .cert-item {
+      background: rgba(15,23,42,0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(55,65,81,0.9);
+      overflow: hidden;
+      box-shadow: 0 14px 28px rgba(15,23,42,0.9);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+    }
+
+    .cert-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(15,23,42,1);
+    }
+
+    .cert-thumb-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-thumb {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.02);
+      transition: transform 0.25s ease-out, filter 0.25s ease-out;
+    }
+
+    .cert-item:hover .cert-thumb {
+      transform: scale(1.03);
+      filter: saturate(1.15) contrast(1.06);
+    }
+
+    .cert-label {
+      padding: 8px 10px 9px;
+      font-size: 11px;
+      border-top: 1px solid rgba(55,65,81,0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cert-title {
+      font-weight: 600;
+    }
+
+    .cert-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* MODAL ZOOM FOR CERTIFICATES */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 55%),
+                  rgba(15,23,42,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out;
+      z-index: 40;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-inner {
+      max-width: min(900px, 92vw);
+      max-height: 88vh;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.4), #020617 60%);
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      padding: 12px 12px 16px;
+      box-shadow: 0 24px 50px rgba(0,0,0,0.85);
+      transform: scale(0.96);
+      opacity: 0;
+      transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal-backdrop.open .modal-inner {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      border: none;
+      background: rgba(15,23,42,0.9);
+      color: var(--text-muted);
+      font-size: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(55,65,81,0.9);
+      transition: 0.15s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--accent-strong);
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 16px rgba(34,211,238,0.8);
+    }
+
+    .modal-img-wrap {
+      flex: 1;
+      background: #020617;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(55,65,81,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-height: 70vh;
+    }
+
+    .modal-caption {
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--text-muted);
+    }
+
+    .modal-caption-main {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* SKILL TREE */
+    .skill-tree {
+      margin-top: 22px;
+    }
+
+    .skill-tree-heading {
+      font-family: "Orbitron", system-ui;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .skill-tree-graph {
+      position: relative;
+      border-radius: 18px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top, rgba(34,211,238,0.08), rgba(15,23,42,0.98));
+      padding: 20px 18px 18px;
+      box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      overflow: hidden;
+      font-size: 11px;
+    }
+
+    .skill-tree-graph::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      bottom: -40px;
+      left: 50%;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(
+        to bottom,
+        rgba(34,211,238,0.0) 0%,
+        rgba(34,211,238,0.7) 40%,
+        rgba(129,140,248,0.7) 60%,
+        rgba(34,211,238,0.0) 100%
+      );
+      opacity: 0.75;
+      filter: blur(0.2px);
+      animation: spine-flow 4s linear infinite;
+    }
+
+    @keyframes spine-flow {
+      0% { transform: translate(-50%, -10%); }
+      100% { transform: translate(-50%, 10%); }
+    }
+
+    .skill-node {
+      position: relative;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.4), rgba(15,23,42,0.98));
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      z-index: 1;
+      box-shadow: 0 0 0 rgba(34,211,238,0);
+      animation: skill-pulse 3s ease-in-out infinite alternate;
+      backdrop-filter: blur(4px);
+    }
+
+    .skill-node-core {
+      grid-column: 2 / 3;
+      justify-self: center;
+      color: var(--accent-strong);
+      font-weight: 600;
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 26px rgba(34,211,238,0.45);
+      animation-duration: 2.5s;
+    }
+
+    .skill-node-left {
+      grid-column: 1 / 2;
+      justify-self: flex-start;
+    }
+
+    .skill-node-right {
+      grid-column: 3 / 4;
+      justify-self: flex-end;
+    }
+
+    .skill-node-mid {
+      grid-column: 2 / 3;
+      justify-self: center;
+    }
+
+    @keyframes skill-pulse {
+      0% {
+        box-shadow: 0 0 0 rgba(34,211,238,0);
+        border-color: rgba(148,163,184,0.6);
+      }
+      100% {
+        box-shadow: 0 0 24px rgba(34,211,238,0.55);
+        border-color: rgba(34,211,238,0.85);
+      }
+    }
+
+    .skill-node-badge {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* FOOTER SMALL */
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 16px 0 4px;
+    }
+
+    /* Small click ping */
+    .click-ping {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,211,238,0.8);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 100;
+    }
+
+    .click-ping.animate {
+      animation: ping 0.4s ease-out;
+    }
+
+    @keyframes ping {
+      0% { opacity: 0.9; transform: scale(0.3); }
+      100% { opacity: 0; transform: scale(1.9); }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <div class="nav-logo">AKHIL REDDY</div>
+        <div class="nav-sub">Game QA • Xbox Certification Tester • Game Dev</div>
+      </div>
+      <div class="nav-links">
+        <div class="nav-chip">
+          <span class="nav-chip-dot"></span>
+          Portfolio Online
+        </div>
+        <button class="nav-btn" onclick="scrollToId('experience')">Experience</button>
+        <button class="nav-btn" onclick="scrollToId('projects')">Projects</button>
+        <button class="nav-btn" onclick="scrollToId('game-demo')">Game Demo</button>
+        <button class="nav-btn" onclick="scrollToId('certifications')">Certifications</button>
+        <button class="nav-btn" onclick="scrollToId('skills')">Skills</button>
+        <button class="nav-btn" onclick="scrollToId('about')">About</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-role">Xbox Certification Tester • Game QA & Web/Game Developer</div>
+        <p class="hero-desc">
+          I'm <strong>Akhil Reddy</strong>, an engineering graduate currently working as an
+          <strong>Xbox Certification Tester</strong> (SmartBrains contracted to HCL, Hyderabad).
+          I love testing and breaking games, building small interactive projects, and experimenting
+          with systems from web games to embedded devices.
+        </p>
+
+        <div class="hero-tags">
+          <span class="tag">Xbox Certification</span>
+          <span class="tag">Game QA</span>
+          <span class="tag">Web Game Dev</span>
+          <span class="tag">Embedded & Automation</span>
+        </div>
+
+        <div class="hero-buttons">
+          <button class="btn-ghost" onclick="scrollToId('experience')">
+            View Experience
+          </button>
+        </div>
+
+        <div class="hero-contact">
+          <div class="hero-contact-item">
+            <span>📞</span> +91-79893 86929
+          </div>
+          <div class="hero-contact-item">
+            <span>📧</span>
+            <a href="mailto:akhil510vishnu511@gmail.com">akhil510vishnu511@gmail.com</a>
+          </div>
+          <div class="hero-contact-item">
+            <span>🔗</span>
+            <a href="https://www.linkedin.com/in/akhil-reddy-20a322235" target="_blank" rel="noreferrer">
+              linkedin.com/in/akhil-reddy-20a322235
+            </a>
+          </div>
+          <div class="hero-contact-item">
+            <span>📍</span> Chevella, Telangana
+          </div>
+        </div>
+      </div>
+
+      <!-- ORB -->
+      <div class="hero-orb-wrap">
+        <div class="hero-orb" id="heroOrb">
+          <div class="hero-orb-noise"></div>
+          <div class="hero-orb-ring"></div>
+          <div class="hero-orb-logo">
+            <div class="hero-orb-name">AKHIL REDDY</div>
+            <div class="hero-orb-role">Game QA // Xbox Tester</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">Experience</div>
+      <div class="section-line"></div>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Xbox Certification Tester</div>
+            <div class="card-sub">
+              SmartBrains (Contracted to HCL), Hyderabad • June 2025 – Present
+            </div>
+          </div>
+          <div class="card-pill">Game QA</div>
+        </div>
+        <ul class="card-list">
+          <li>
+            Execute test cases for <strong>Xbox titles</strong> following Microsoft TRC/TCR guidelines,
+            including gameplay, UI/UX, performance and controller behavior checks.
+          </li>
+          <li>
+            Identify, reproduce and document bugs in a structured format; help keep builds stable
+            and ready for certification.
+          </li>
+          <li>
+            Work in a fast-paced environment with <strong>rotational shifts</strong>, occasional weekends,
+            and strict confidentiality requirements (NDA).
+          </li>
+          <li>
+            Collaborate with QA teams to prioritize issues and ensure a smooth player experience.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">Projects</div>
+      <div class="section-line"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Flappy Bird Clone – Web & Desktop Game</div>
+              <div class="card-sub">
+                2D side-scrolling game with scoring and restart logic.
+              </div>
+            </div>
+            <div class="card-pill">Game Build</div>
+          </div>
+          <ul class="card-list">
+            <li>
+              Built a <strong>Flappy Bird–style</strong> game using HTML, CSS and JavaScript:
+              gravity, collision detection, score tracking, and restart flow.
+            </li>
+            <li>
+              Added player <strong>name-based high scores</strong> via local storage for a simple
+              leaderboard feel.
+            </li>
+            <li>
+              Converted the web version into a <strong>desktop app</strong> using Electron.js
+              to experiment with packaging and distribution.
+            </li>
+          </ul>
+          <div class="badge-row">
+            <span class="badge badge-strong">HTML</span>
+            <span class="badge badge-strong">CSS</span>
+            <span class="badge badge-strong">JavaScript</span>
+            <span class="badge">Electron.js</span>
+            <span class="badge">Game Logic</span>
+          </div>
+
+          <!-- PLAY GAME BUTTON -->
+          <div style="margin-top:10px;">
+            <a href="flappy%20bird/index.html" target="_blank"
+               style="
+                 display:inline-block;
+                 padding:8px 14px;
+                 border-radius:999px;
+                 border:1px solid rgba(56,189,248,0.7);
+                 text-transform:uppercase;
+                 letter-spacing:0.16em;
+                 font-size:10px;
+                 text-decoration:none;
+                 color:#38bdf8;
+                 background:rgba(15,23,42,0.9);
+                 box-shadow:0 0 14px rgba(56,189,248,0.6);
+               ">
+              ▶ Play Game Demo
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Raspberry Pi Pico Oscilloscope</div>
+              <div class="card-sub">
+                Embedded signal visualization on a smartphone UI.
+              </div>
+            </div>
+            <div class="card-pill">Embedded</div>
+          </div>
+          <ul class="card-list">
+            <li>
+              Built a low-cost digital oscilloscope using <strong>Raspberry Pi Pico</strong> and
+              <strong>MCP3008 ADC</strong>.
+            </li>
+            <li>
+              Used <strong>Python</strong> to sample analog signals and display them as
+              adjustable real-time graphs on a phone.
+            </li>
+            <li>
+              Demonstrated understanding of embedded systems, data acquisition and basic
+              signal processing.
+            </li>
+          </ul>
+          <div class="badge-row">
+            <span class="badge badge-strong">Python</span>
+            <span class="badge">Raspberry Pi Pico</span>
+            <span class="badge">MCP3008</span>
+            <span class="badge">Signal Visualization</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">PLC-Based BBQ Automation System</div>
+            <div class="card-sub">
+              Automating a cooking process using PLC logic and HMI/SCADA.
+            </div>
+          </div>
+          <div class="card-pill">Automation</div>
+        </div>
+        <ul class="card-list">
+          <li>
+            Designed a <strong>fully automated BBQ cooking flow</strong> using PLC and HMI/SCADA screens.
+          </li>
+          <li>
+            Implemented ladder logic for temperature, timers and error reduction to minimize
+            manual mistakes.
+          </li>
+          <li>
+            Managed both <strong>hardware wiring</strong> and PLC code, handling the full
+            lifecycle from idea to working prototype.
+          </li>
+        </ul>
+        <div class="badge-row">
+          <span class="badge">PLC</span>
+          <span class="badge">HMI / SCADA</span>
+          <span class="badge">Ladder Logic</span>
+          <span class="badge">Process Control</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS GALLERY -->
+    <section id="certifications">
+      <div class="section-title">Certifications</div>
+      <div class="section-line"></div>
+
+      <div class="cert-grid">
+        <!-- Great Learning -->
+        <div class="cert-item"
+             data-img="certs/gl_fullstack.png"
+             data-title="Full Stack Development – Master Course"
+             data-provider="Great Learning Academy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/gl_fullstack.png" alt="Full Stack Development - Great Learning"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Full Stack Development – Master Course</div>
+            <div class="cert-sub">Great Learning Academy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/gl_java.png"
+             data-title="Java Programming"
+             data-provider="Great Learning Academy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/gl_java.png" alt="Java Programming - Great Learning"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Java Programming</div>
+            <div class="cert-sub">Great Learning Academy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/gl_ds_python.png"
+             data-title="Data Science with Python"
+             data-provider="Great Learning Academy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/gl_ds_python.png" alt="Data Science with Python"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Data Science with Python</div>
+            <div class="cert-sub">Great Learning Academy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/gl_sql_ds.png"
+             data-title="SQL for Data Science"
+             data-provider="Great Learning Academy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/gl_sql_ds.png" alt="SQL for Data Science"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">SQL for Data Science</div>
+            <div class="cert-sub">Great Learning Academy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/gl_Python_for_MySQL.png"
+             data-title="Python for MySQL"
+             data-provider="Great Learning Academy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/gl_Python_for_MySQL.png" alt="Python for MySQL"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Python for MySQL</div>
+            <div class="cert-sub">Great Learning Academy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/udemy_Selenium Testing.png"
+             data-title="Selenium Testing"
+             data-provider="Udemy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/udemy_Selenium Testing.png" alt="Selenium Testing"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Selenium Testing</div>
+            <div class="cert-sub">Udemy</div>
+          </div>
+        </div>
+
+        <!-- Udemy -->
+        <div class="cert-item"
+             data-img="certs/udemy_jira.png"
+             data-title="JIRA for Software Testers (2025)"
+             data-provider="Udemy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/udemy_jira.png" alt="JIRA for Software Testers - Udemy"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">JIRA for Software Testers (2025)</div>
+            <div class="cert-sub">Udemy</div>
+          </div>
+        </div>
+
+        <div class="cert-item"
+             data-img="certs/udemy_agile_scrum.png"
+             data-title="Master Agile & Scrum Basics"
+             data-provider="Udemy">
+          <div class="cert-thumb-wrap">
+            <img src="certs/udemy_agile_scrum.png" alt="Master Agile & Scrum Basics - Udemy"
+                 class="cert-thumb" />
+          </div>
+          <div class="cert-label">
+            <div class="cert-title">Master Agile & Scrum Basics</div>
+            <div class="cert-sub">Udemy</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">Skills</div>
+      <div class="section-line"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Technical & Game QA</div>
+          </div>
+          <ul class="card-list">
+            <li>
+              <strong>Languages & Web:</strong> Python, Java, JavaScript, HTML, CSS, SQL.
+            </li>
+            <li>
+              <strong>Tools & Tech:</strong> GitHub, VS Code, MS Office, Electron.js.
+            </li>
+            <li>
+              <strong>Game QA:</strong> Bug reporting, test case execution, UI/UX testing,
+              Xbox certification flows (TRC/TCR awareness).
+            </li>
+          </ul>
+          <div class="badge-row">
+            <span class="badge badge-strong">Python</span>
+            <span class="badge">Java</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">HTML/CSS</span>
+            <span class="badge">SQL</span>
+            <span class="badge">Game QA</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Soft Skills & Strengths</div>
+          </div>
+          <ul class="card-list">
+            <li>Strong communication and team collaboration in QA and project settings.</li>
+            <li>Problem-solving mindset with focus on player experience and stability.</li>
+            <li>Time management, adaptability, and a quick learning curve.</li>
+          </ul>
+          <div class="badge-row">
+            <span class="badge">Communication</span>
+            <span class="badge">Teamwork</span>
+            <span class="badge">Problem-Solving</span>
+            <span class="badge">Adaptability</span>
+            <span class="badge">Quick Learner</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL TREE -->
+      <div class="skill-tree">
+        <div class="skill-tree-heading">Skill Tree</div>
+        <div class="skill-tree-graph">
+          <!-- Core -->
+          <div class="skill-node skill-node-core">
+            <span>Game QA / Testing</span>
+            <span class="skill-node-badge">Core</span>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="skill-node skill-node-left">
+            <span>Bug Reporting</span>
+          </div>
+          <div class="skill-node skill-node-mid">
+            <span>Test Case Execution</span>
+          </div>
+          <div class="skill-node skill-node-right">
+            <span>TRC / TCR Awareness</span>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="skill-node skill-node-left">
+            <span>JIRA</span>
+            <span class="skill-node-badge">Tool</span>
+          </div>
+          <div class="skill-node skill-node-mid">
+            <span>Agile & Scrum</span>
+            <span class="skill-node-badge">Workflow</span>
+          </div>
+          <div class="skill-node skill-node-right">
+            <span>UI / UX Checks</span>
+          </div>
+
+          <!-- Tier 4 -->
+          <div class="skill-node skill-node-left">
+            <span>HTML / CSS / JS</span>
+          </div>
+          <div class="skill-node skill-node-mid">
+            <span>Python & SQL</span>
+          </div>
+          <div class="skill-node skill-node-right">
+            <span>Automation Basics</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / EDUCATION -->
+    <section id="about">
+      <div class="section-title">About & Education</div>
+      <div class="section-line"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">About Me</div>
+          </div>
+          <ul class="card-list">
+            <li>
+              Engineering graduate and <strong>hardcore gamer</strong> who enjoys understanding
+              how games feel, break, and can be improved.
+            </li>
+            <li>
+              Comfortable switching between <strong>testing roles</strong> and <strong>building small prototypes</strong>
+              (web games, tools, and embedded experiments).
+            </li>
+            <li>
+              Looking to grow as a <strong>Game Tester / Game QA Engineer / Game Dev</strong> in a studio
+              that values creativity and polish.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Education & Extras</div>
+          </div>
+          <ul class="card-list">
+            <li>
+              <strong>B.Tech in Electrical & Electronics Engineering (EEE)</strong><br />
+              Vidhya Jyothi Institute of Technology, Hyderabad — 2025 (CGPA: 6.0/10)
+            </li>
+            <li>
+              Coordinated college events (Freshers, Contrive 2k23/2k24, Udbhav 2022/23),
+              hackathon volunteer and photography club member.
+            </li>
+            <li>
+              1st Place – <strong>Contrive 2k24</strong> technical competition.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+     Built with HTML, CSS & JavaScript.
+    </footer>
+  </main>
+
+  <!-- CERTIFICATE MODAL -->
+  <div class="modal-backdrop" id="certModal" aria-hidden="true">
+    <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+      <button class="modal-close" id="certModalClose" aria-label="Close certificate view">×</button>
+      <div class="modal-img-wrap">
+        <img src="" alt="Certificate preview" class="modal-img" id="certModalImg" />
+      </div>
+      <div class="modal-caption">
+        <div>
+          <div class="modal-caption-main" id="certModalTitle"></div>
+          <div id="certModalProvider"></div>
+        </div>
+        <div>Click outside or press Esc to close</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="click-ping" id="clickPing"></div>
+
+  <script>
+    // Smooth scroll buttons
+    function scrollToId(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Orb reacts to mouse a bit (subtle)
+    const heroOrb = document.getElementById("heroOrb");
+    window.addEventListener("mousemove", (e) => {
+      const rect = heroOrb.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      const rotX = dy * 10;
+      const rotY = -dx * 10;
+      heroOrb.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    });
+
+    // Click ping effect
+    const clickPing = document.getElementById("clickPing");
+    window.addEventListener("click", (e) => {
+      clickPing.style.left = e.clientX - 8 + "px";
+      clickPing.style.top = e.clientY - 8 + "px";
+      clickPing.classList.remove("animate");
+      void clickPing.offsetWidth;
+      clickPing.classList.add("animate");
+    });
+
+    // Certificate modal logic
+    const certModal = document.getElementById("certModal");
+    const certModalImg = document.getElementById("certModalImg");
+    const certModalTitle = document.getElementById("certModalTitle");
+    const certModalProvider = document.getElementById("certModalProvider");
+    const certModalClose = document.getElementById("certModalClose");
+
+    function openCertModal(img, title, provider) {
+      certModalImg.src = img;
+      certModalTitle.textContent = title || "";
+      certModalProvider.textContent = provider || "";
+      certModal.classList.add("open");
+      certModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeCertModal() {
+      certModal.classList.remove("open");
+      certModal.setAttribute("aria-hidden", "true");
+      certModalImg.src = "";
+    }
+
+    document.querySelectorAll(".cert-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const img = item.dataset.img || item.querySelector(".cert-thumb").src;
+        const title = item.dataset.title || item.querySelector(".cert-title")?.textContent;
+        const provider = item.dataset.provider || item.querySelector(".cert-sub")?.textContent;
+        openCertModal(img, title, provider);
+      });
+    });
+
+    certModalClose.addEventListener("click", closeCertModal);
+
+    certModal.addEventListener("click", (e) => {
+      if (e.target === certModal) {
+        closeCertModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && certModal.classList.contains("open")) {
+        closeCertModal();
+      }
+    });
+  </script>
+</body>
+</html>

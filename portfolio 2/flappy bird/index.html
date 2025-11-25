@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retro Flappy Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Minimal styling for menu so you don't have to touch style.css */
+    #menuOverlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.9);
+      color: #00ffff;
+      font-family: "Courier New", monospace;
+      z-index: 10;
+    }
+    #menuOverlay h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 6px #00ffff;
+    }
+    #menuOverlay p {
+      margin: 4px 0;
+    }
+    #menuButtons {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+    }
+    #menuOverlay button {
+      padding: 8px 16px;
+      border: 2px solid #00ffff;
+      background: black;
+      color: #00ffff;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    #menuOverlay button:hover {
+      background: #00ffff;
+      color: black;
+    }
+    #scoresPanel {
+      margin-top: 18px;
+      border: 1px solid #00ffff;
+      padding: 8px 12px;
+      max-width: 260px;
+      display: none;
+    }
+    #scoresPanel h2 {
+      font-size: 18px;
+      margin: 0 0 6px 0;
+    }
+    #scoresPanel ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      text-align: left;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- CRT overlay for retro feel -->
+  <div class="crt"></div>
+
+  <!-- Start menu overlay -->
+  <div id="menuOverlay">
+    <h1>RETRO FLAPPY</h1>
+    <p>SPACE = Jump & Start</p>
+    <p>P = Pause / Resume</p>
+
+    <div id="menuButtons">
+      <button id="playBtn">Play</button>
+      <button id="scoresBtn">High Scores</button>
+    </div>
+
+    <div id="scoresPanel">
+      <h2>High Scores</h2>
+      <ul id="scoresList">
+        <!-- filled by JS -->
+      </ul>
+      <button id="backBtn" style="margin-top:8px;">Back</button>
+    </div>
+  </div>
+
+  <!-- Game canvas -->
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

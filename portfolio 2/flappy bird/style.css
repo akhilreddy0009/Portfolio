@@ -1,0 +1,28 @@
+body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+}
+
+canvas {
+    border: 4px solid #00ffff;
+    background-color: black;
+    image-rendering: pixelated;
+    filter: contrast(1.4) saturate(1.2);
+    box-shadow: 0 0 20px #00ffff;
+}
+.crt {
+    position: fixed;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        rgba(0,255,255,0.04),
+        rgba(0,255,255,0.04) 2px,
+        rgba(0,255,255,0.01) 3px
+    );
+}
